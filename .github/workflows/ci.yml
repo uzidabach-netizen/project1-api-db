@@ -12,15 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1. הרמת המערכת בעזרת דוקר קומפוז (כולל בילד אוטומטי של ה-api ומסד הנתונים)
       - name: Start services with Docker Compose
         run: docker compose up --build -d
 
-      # 2. הרצת הבדיקות מתוך הקונטיינר הרץ של ה-api
       - name: Run Pytest
         run: docker compose exec -T api pytest test_app.py
 
-      # 3. כיבוי הקונטיינרים בסיום הבדיקות
       - name: Stop Docker Compose
         run: docker compose down
         
