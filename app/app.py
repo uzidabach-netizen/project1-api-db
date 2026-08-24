@@ -55,5 +55,4 @@ def delete_item(item_id: int):
             return {"message": "Item deleted successfully", "id": item_id}
     finally:
         connection.close()
-        #שיט
         
