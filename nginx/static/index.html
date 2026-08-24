@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>פרויקט Full Stack - Nginx & FastAPI</title>
+</head>
+<body>
+    <h1>ניהול פריטים</h1>
+    
+    <button onclick="loadItems()">טען פריטים</button>
+    <ul id="items-list"></ul>
+
+    <h2>הוספת פריט חדש</h2>
+    <input type="text" id="item-name" placeholder="שם הפריט">
+    <button onclick="addItem()">הוסף פריט</button>
+
+    <script>
+        async function loadItems() {
+            const res = await fetch('/api/items');
+            const data = await res.json();
+            const list = document.getElementById('items-list');
+            list.innerHTML = '';
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.name;
+                list.appendChild(li);
+            });
+        }
+
+        async function addItem() {
+            const name = document.getElementById('item-name').value;
+            if (!name) return;
+            await fetch(`/api/items/${name}`, { method: 'POST' });
+            loadItems();
+        }
+    </script>
+</body>
+</html>
