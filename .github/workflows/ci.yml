@@ -24,6 +24,6 @@ jobs:
       - name: Login and Push to Docker Hub
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-api-app:latest -t ${{ secrets.DOCKer_USERNAME }}/my-api-app:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-api-app:latest -t ${{ secrets.DOCKER_USERNAME }}/my-api-app:${{ github.sha }} ./app
           docker push ${{ secrets.DOCKER_USERNAME }}/my-api-app --all-tags
           
