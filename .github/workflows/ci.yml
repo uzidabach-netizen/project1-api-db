@@ -14,7 +14,13 @@ jobs:
 
       - name: Build and run tests with Docker Compose
         run: |
-          docker compose up --build --abort-on-container-exit
+          docker compose up --build -d
+          # כאן אפשר להריץ את הטסטים בתוך הקונטיינר, לדוגמה:
+          docker compose exec -T api pytest
+        # שלב ניקוי שסוגר את הקונטיינרים שלא יישארו פתוחים
+        always:
+          - name: Stop containers
+            run: docker compose down
 
       - name: Login and Push to Docker Hub
         run: |
